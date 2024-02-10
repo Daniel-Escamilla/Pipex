@@ -1,4 +1,9 @@
 SOURCE_FILES =	ft_main.c \
+				ft_split.c \
+				ft_strnstr.c \
+				ft_strjoin.c \
+				ft_execute.c \
+				ft_commands.c \
 
 NAME = pipex
 

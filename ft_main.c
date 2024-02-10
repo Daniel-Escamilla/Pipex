@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/08 17:24:22 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:01:43 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,36 @@ void	ft_error(char *str)
 	exit(1);
 }
 
-int	main(int argc, char **argv)
+void	ft_setnames(t_names names, int fd)
 {
-	t_names	names;
-	int		fd;
-	
-	if (argc <= 4)
-		ft_error("Few arguments");
-	names.input = argv[1];
-	names.output = argv[argc - 1];
 	if (access(names.input, F_OK) == -1)
 		ft_error("File error");
 	if (access(names.output, F_OK) == -1)
 		fd = open(names.output, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
-	printf("Input = %s --- Output = %s\n", names.input, names.output);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_names	names;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = 0;
+	if (argc <= 4)
+		ft_error("Few arguments");
+	names.input = argv[1];
+	names.output = argv[argc - 1];
+	names.num_comm = (argc - 3);
+	ft_setnames(names, fd);
+	ft_execute(names, argv, envp);
+	printf("%d\n", argc);
+	close(fd);
 	return (0);
 }
+
+	// while (names.path[i] != NULL)
+	// 	printf("PATH = %s\n", names.path[i++]);
+	// printf("Command = %s\n", names.command);
+	// printf("Path_comm = %s\n", names.path_comm);
+	// printf("Input = %s --- Output = %s\n", names.input, names.output);
