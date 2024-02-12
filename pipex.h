@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/10 17:28:11 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:39:23 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_names
 	char	*path_comm;
 
 	char	**path;
-	char	**entire_comm;
+	char	**entire_comm1;
+	char	**entire_comm2;
 }			t_names;
 
 size_t	ft_strlen(const char *s);

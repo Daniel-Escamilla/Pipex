@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/10 17:28:40 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:07:47 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_validate_comm(t_names names)
 {
 	int		j;
 
-	names.command = ft_strjoin("/", names.entire_comm[0]);
+	names.command = ft_strjoin("/", names.entire_comm1[0]);
 	j = 0;
 	while (names.path[j] != NULL)
 	{
