@@ -1,13 +1,13 @@
 SOURCE_FILES =	ft_main.c \
 				ft_split.c \
-				ft_strnstr.c \
+				ft_strstr.c \
 				ft_strjoin.c \
 				ft_commands.c \
 
 NAME = pipex
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 OBJECTS = $(SOURCE_FILES:.c=.o)
 
@@ -17,7 +17,9 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJECTS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
+
+# bonus: all
 
 clean:
 	rm -rf $(OBJECTS)
