@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 17:06:17 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:03:57 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ char	**ft_split(const char *s, char c);
 
 void	ft_error(char *str);
 void	ft_setnames(t_names *names, char **argv);
-void	ft_execute(t_names names, char **argv, char **envp);
 
 #endif

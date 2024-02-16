@@ -6,18 +6,11 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 17:10:35 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:16:01 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_setnames(t_names *names, char **argv)
-{
-	names->input = argv[1];
-	if (argv[4] != NULL)
-		names->output = (void *)argv[4];
-}
 
 void	ft_child1(t_names *names, char **argv, int *fd_pipe, char **envp)
 {
@@ -75,6 +68,18 @@ void	ft_child(t_names names, char **argv, char **envp, int *fd_pipe)
 		ft_child2(&names, argv, fd_pipe, envp);
 }
 
+static void	ft_free_path(t_names *names)
+{
+	int	i;
+
+	i = 0;
+	while (names->path[i])
+	{
+		free(names->path[i++]);
+	}
+	free(names->path);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_names	names;
@@ -98,5 +103,6 @@ int	main(int argc, char **argv, char **envp)
 	close(fd_pipe[1]);
 	waitpid(names.child1, NULL, 0);
 	waitpid(names.child2, NULL, 0);
+	ft_free_path(&names);
 	return (0);
 }

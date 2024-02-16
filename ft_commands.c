@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 17:08:19 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:03:38 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	ft_error(char *str)
 {
 	perror(str);
 	exit(1);
+}
+
+void	ft_setnames(t_names *names, char **argv)
+{
+	names->input = argv[1];
+	if (argv[4] != NULL)
+		names->output = (void *)argv[4];
 }
 
 char	*ft_remove_path(char *dst, const char *src, int num, int i)

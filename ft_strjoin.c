@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:22:54 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/10 13:36:13 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:14:17 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,20 @@ int	ft_strchr(const char *s, int c)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	n;
+	int		i;
+	int		j;
 	char	*ptr;
-	size_t	i;
-	size_t	j;
 
-	i = 0;
+	i = -1;
+	j = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	ptr = malloc(j + 1);
 	j = 0;
-	n = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	ptr = malloc(n + 1);
 	if (ptr == NULL)
 		return (NULL);
-	while ((char)s1[i] != '\0')
-	{
+	while ((char)s1[++i] != '\0')
 		ptr[i] = (char)s1[i];
-		i++;
-	}
 	while ((char)s2[j] != '\0')
-	{
-		ptr[i] = (char)s2[j];
-		i++;
-		j++;
-	}
+		ptr[i++] = (char)s2[j++];
 	ptr[i] = '\0';
 	return (ptr);
 }
