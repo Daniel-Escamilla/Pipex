@@ -1,28 +1,28 @@
-SOURCE_FILES =	ft_main.c \
-				ft_split.c \
-				ft_commands.c \
-				ft_pipex_utils.c \
+SOURCE_FILES_BONUS =	ft_main_bonus.c \
+						ft_split_bonus.c \
+						ft_commands_bonus.c \
+						ft_pipex_utils_bonus.c \
 
-NAME = pipex
+NAME_BONUS = pipex_bonu
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-OBJECTS = $(SOURCE_FILES:.c=.o)
+OBJECTS_BONUS = $(SOURCE_FILES_BONUS:.c=.o)
 
-all: $(NAME)
+all: $(NAME_BONUS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) : $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
+$(NAME_BONUS) : $(OBJECTS_BONUS)
+	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJECTS_BONUS)
 
 clean:
-	rm -rf $(OBJECTS)
+	rm -rf $(OBJECTS_BONUS)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(NAME_BONUS)
 
 re: clean all
 

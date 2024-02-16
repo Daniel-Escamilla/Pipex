@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 18:31:36 by descamil         ###   ########.fr       */
+/*   Created: 2024/02/16 19:15:48 by descamil          #+#    #+#             */
+/*   Updated: 2024/02/16 19:20:48 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -37,10 +37,12 @@ typedef struct s_names
 	char	**entire_comm;
 }			t_names;
 
-int		ft_strlen(const char *s);
-int		ft_strchr(const char *s, int c);
-int		ft_strnstr(const char *s1, const char *s2, size_t len);
+int		ft_strlen_bonus(const char *s);
+int		ft_strchr_bonus(const char *s, int c);
+int		ft_strnstr_bonus(const char *s1, const char *s2, int len);
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_bonus(char const *s1, char const *s2);
+
+char	**ft_split_bonus(const char *s, char c);
 
 #endif

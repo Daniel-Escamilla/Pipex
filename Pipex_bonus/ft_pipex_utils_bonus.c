@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex_utils.c                                   :+:      :+:    :+:   */
+/*   ft_pipex_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:26:16 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 18:30:58 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:20:45 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-int	ft_strnstr(const char *s1, const char *s2, size_t len)
+int	ft_strnstr_bonus(const char *s1, const char *s2, int len)
 {
 	int	i;
 	int	j;
@@ -37,7 +37,7 @@ int	ft_strnstr(const char *s1, const char *s2, size_t len)
 	return (0);
 }
 
-int	ft_strlen(const char *s)
+int	ft_strlen_bonus(const char *s)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_strchr_bonus(const char *s, int c)
 {
 	while (*s != '\0')
 	{
@@ -57,14 +57,14 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_bonus(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
 	char	*ptr;
 
 	i = -1;
-	j = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	j = ft_strlen_bonus((char *)s1) + ft_strlen_bonus((char *)s2);
 	ptr = malloc(j + 1);
 	j = 0;
 	if (ptr == NULL)

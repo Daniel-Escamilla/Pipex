@@ -19,11 +19,17 @@ all: $(NAME)
 $(NAME) : $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
 
+bonus:
+	$(MAKE) -C pipex_bonus all
+	mv pipex_bonus/pipex_bonu .
+
 clean:
 	rm -rf $(OBJECTS)
+	$(MAKE) -C pipex_bonus clean
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE) -C pipex_bonus fclean
 
 re: clean all
 
