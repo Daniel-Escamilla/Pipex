@@ -18,8 +18,6 @@ all: $(NAME)
 $(NAME) : $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
 
-# bonus: all
-
 clean:
 	rm -rf $(OBJECTS)
 
