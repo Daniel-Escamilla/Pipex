@@ -6,11 +6,17 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/15 16:44:05 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:08:19 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	ft_error(char *str)
+{
+	perror(str);
+	exit(1);
+}
 
 char	*ft_remove_path(char *dst, const char *src, int num, int i)
 {
@@ -46,7 +52,7 @@ char	*ft_validate_comm(t_names *names, int i)
 	{
 		if (access(*names->entire_comm1, X_OK) == 0)
 			return (*names->entire_comm1);
-			names->command = ft_strjoin("/", names->entire_comm1[0]);
+		names->command = ft_strjoin("/", names->entire_comm1[0]);
 	}
 	else if (i == 2)
 	{

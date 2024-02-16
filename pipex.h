@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/13 16:25:17 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:06:17 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@
 typedef struct s_names
 {
 	int		fd;
-	
+	int		child1;
+	int		child2;
+
 	void	*output;
-	
+
 	char	*route;
 	char	*input;
 	char	*command;

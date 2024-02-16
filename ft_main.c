@@ -6,17 +6,11 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 15:05:34 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:10:35 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_error(char *str)
-{
-	perror(str);
-	exit(1);
-}
 
 void	ft_setnames(t_names *names, char **argv)
 {
@@ -28,7 +22,7 @@ void	ft_setnames(t_names *names, char **argv)
 void	ft_child1(t_names *names, char **argv, int *fd_pipe, char **envp)
 {
 	int	fd;
-	
+
 	fd = open(names->input, O_RDONLY);
 	dup2(fd, STDIN_FILENO);
 	dup2(fd_pipe[1], STDOUT_FILENO);
@@ -67,14 +61,26 @@ void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **envp)
 	execve(names->route, names->entire_comm2, envp);
 }
 
+void	ft_child(t_names names, char **argv, char **envp, int *fd_pipe)
+{
+	names.child1 = fork();
+	if (names.child1 == -1)
+		ft_error("Child error");
+	if (names.child1 == 0)
+		ft_child1(&names, argv, fd_pipe, envp);
+	names.child2 = fork();
+	if (names.child2 == -1)
+		ft_error("Child2 error");
+	if (names.child2 == 0)
+		ft_child2(&names, argv, fd_pipe, envp);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_names	names;
 	int		fd;
 	int		fd_pipe[2];
-	int		child;
-	int		child2;
-	
+
 	fd = 0;
 	if (argc != 5)
 	{
@@ -87,19 +93,10 @@ int	main(int argc, char **argv, char **envp)
 	names.path = ft_create_path(envp);
 	if (pipe(fd_pipe) == -1)
 		ft_error("Pipe error");
-	child = fork();
-	if (child == -1)
-		ft_error("Child error");
-	if (child == 0)
-		ft_child1(&names, argv, fd_pipe, envp);
-	child2 = fork();
-	if (child2 == -1)
-		ft_error("Child2 error");
-	if (child2 == 0)
-		ft_child2(&names, argv, fd_pipe, envp);
+	ft_child(names, argv, envp, fd_pipe);
 	close(fd_pipe[0]);
 	close(fd_pipe[1]);
-	waitpid(child, NULL, 0);
-	waitpid(child2, NULL, 0);
+	waitpid(names.child1, NULL, 0);
+	waitpid(names.child2, NULL, 0);
 	return (0);
 }
