@@ -1,0 +1,12 @@
+total 104
+-rw-r--r--  1 descamil  2019      0 Feb 17 16:27 12
+-rw-r--r--  1 descamil  2019    651 Feb 17 15:52 5323
+drwxr-xr-x  8 descamil  2019    272 Feb 17 16:25 Bonus_pipex
+-rw-r--r--  1 descamil  2019    759 Feb 17 10:50 Makefile
+-rwxr-xr-x  1 descamil  2019  18256 Feb 17 15:52 a.out
+-rw-r--r--  1 descamil  2019   2147 Feb 16 18:54 ft_commands.c
+-rw-r--r--  1 descamil  2019   2991 Feb 17 16:24 ft_main.c
+-rw-r--r--  1 descamil  2019   2314 Feb 16 18:54 ft_split.c
+-rw-r--r--  1 descamil  2019   1518 Feb 16 18:54 ft_strjoin.c
+-rw-r--r--  1 descamil  2019   1259 Feb 16 18:54 ft_strstr.c
+-rw-r--r--  1 descamil  2019   1657 Feb 17 15:33 pipex.h
