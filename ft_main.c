@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 18:16:01 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:24:36 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,22 @@ void	ft_child(t_names names, char **argv, char **envp, int *fd_pipe)
 		ft_child2(&names, argv, fd_pipe, envp);
 }
 
-static void	ft_free_path(t_names *names)
+static void	ft_free_path(t_names *names, int i)
 {
-	int	i;
-
-	i = 0;
 	while (names->path[i])
-	{
 		free(names->path[i++]);
-	}
 	free(names->path);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_names	names;
-	int		fd;
 	int		fd_pipe[2];
 
-	fd = 0;
 	if (argc != 5)
 	{
 		write (2, "Error\n", 6);
-		return (1);
+		return (0);
 	}
 	ft_setnames(&names, argv);
 	if (dup2(names.fd, STDOUT_FILENO) == -1)
@@ -103,6 +96,6 @@ int	main(int argc, char **argv, char **envp)
 	close(fd_pipe[1]);
 	waitpid(names.child1, NULL, 0);
 	waitpid(names.child2, NULL, 0);
-	ft_free_path(&names);
+	ft_free_path(&names, 0);
 	return (0);
 }
