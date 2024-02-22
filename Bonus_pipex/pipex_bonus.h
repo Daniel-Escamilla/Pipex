@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:15:48 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/17 16:59:17 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:12:17 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@
 
 typedef struct s_names
 {
+	pid_t	*proc;
+
 	int		fd;
 	int		argc;
 	int		index;
+	int		fd_tmp;
 	int		num_comm;
+	int		comm_midd;
 
 	int		fd_pipe[2];
-	int		*proc;
-
+	
 	void	*output;
 
 	char	*route;
@@ -48,7 +51,11 @@ int		ft_strchr_bonus(const char *s, int c);
 int		ft_strnstr_bonus(const char *s1, const char *s2, int len);
 
 void	ft_error_bonus(char *str);
-void	ft_execute_bonus(t_names *names);
+void	ft_last_comm(t_names *names);
+void	ft_midd_comm(t_names *names);
+void	ft_first_comm(t_names *names);
+void	ft_execute_bonus(t_names *names, char *argv);
+
 
 char	*ft_validate_comm_bonus(t_names *names, int i);
 char	*ft_strjoin_bonus(char const *s1, char const *s2);

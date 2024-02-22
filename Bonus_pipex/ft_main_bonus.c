@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/17 17:17:21 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:12:41 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,100 +19,12 @@ void	ft_setvalues_bonus(t_names *names, char **argv, char **envp, int argc)
 	names->argc = argc;
 	names->argv = argv;
 	names->envp = envp;
+	names->comm_midd = 3;
 	names->input = names->argv[1];
 	names->num_comm = names->argc - 3;
 	names->path = ft_create_path_bonus(names);
 	names->output = names->argv[names->argc - 1];
 	names->proc = malloc(names->num_comm * sizeof(int));
-}
-
-void	ft_make_first(t_names *names)
-{
-	int	fd;
-
-	fd = open(names->input, O_RDONLY);
-	dup2(fd, STDIN_FILENO);
-	dup2(names->fd_pipe[1], STDOUT_FILENO);
-	close(names->fd_pipe[0]);
-	
-	names->entire_comm = ft_split_bonus(names->argv[2], ' ');
-	if (names->entire_comm == NULL)
-		ft_error_bonus("Bad split");
-	names->route = ft_validate_comm_bonus(names, 1);
-	if (fd == -1 && names->route != NULL)
-	{
-		perror("Failed open input");
-		exit(1);
-	}
-	else if (fd == -1 && names->route == NULL)
-		write(2, "Command not found\n", 19);
-	execve(names->route, names->entire_comm, names->envp);
-}
-
-void	ft_make_last(t_names *names)
-{
-	int	fd;
-
-	fd = open(names->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		close(names->fd_pipe[0]);
-		ft_error_bonus("Error open input");
-	}
-	dup2(fd, STDOUT_FILENO);
-	dup2(names->fd_pipe[0], STDIN_FILENO);
-	close(names->fd_pipe[1]);
-	names->entire_comm = ft_split_bonus(names->argv[3], ' ');
-	if (names->entire_comm == NULL)
-		ft_error_bonus("Bad split");
-	names->route = ft_validate_comm_bonus(names, 2);
-	execve(names->route, names->entire_comm, names->envp);
-}
-
-// void	ft_make_midd(t_names *names)
-// {
-	
-// }
-
-void	ft_first_comm(t_names *names)
-{
-	int temp_fd;
-	
-	if (dup2(names->fd, STDOUT_FILENO) == -1)
-		ft_error_bonus("Failed redirecting");
-	if (pipe(names->fd_pipe) == -1)
-		ft_error_bonus("Pipe error");
-	temp_fd = fork();
-	names->proc[names->index] = temp_fd;
-	if (names->proc[names->index] == -1)
-		ft_error_bonus("Filed in fork()");
-	if (names->proc[names->index] == 0)
-		ft_make_first(names);
-	names->index++;
-}
-
-// void	ft_midd_comm(t_names *names)
-// {
-// 	while (names->num_comm > 0)
-// 	{
-// 		names->proc[names->index] = fork();
-// 		if (names->proc[names->index] == -1)
-// 			ft_error_bonus("Filed in fork()");
-// 		if (names->proc[names->index] == 0)
-// 			ft_make_midd(names);
-// 		names->index++;
-// 		names->num_comm--;
-// 	}
-// }
-
-void	ft_last_comm(t_names *names)
-{
-	names->proc[names->index] = fork();
-	if (names->proc[names->index] == -1)
-		ft_error_bonus("Filed in fork()");
-	if (names->proc[names->index] == 0)
-		ft_make_last(names);
-	names->index++;
 }
 
 void	ft_wait_bonus(t_names *names, int i)
@@ -147,12 +59,28 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 		ft_error_write("Few args\n");
 	ft_setvalues_bonus(&names, argv, envp, argc);
+	printf("Set = %d\n", names.num_comm);
 	ft_first_comm(&names);
-	// if (names.num_comm > 2)
-	// 	ft_midd_comm(&names);
+	printf("FD_PIPE[0] = [%d]\n", names.fd_pipe[0]);
+	printf("FD_PIPE[1] = [%d]\n\n", names.fd_pipe[1]);
+	printf("FD_TEMP = [%d]\n", names.fd_tmp);
+	while (names.num_comm > 2)
+	{
+		printf("Antes2 = %d\n", names.num_comm);
+		ft_midd_comm(&names);
+		printf("FD_PIPE[0] = [%d]\n", names.fd_pipe[0]);
+		printf("FD_PIPE[1] = [%d]\n\n", names.fd_pipe[1]);
+		names.num_comm--;
+	}
+	printf("Después = %d\n", names.num_comm);
 	ft_last_comm(&names);
+	printf("FD_PIPE[0] = [%d]\n", names.fd_pipe[0]);
+	printf("FD_PIPE[1] = [%d]\n\n", names.fd_pipe[1]);
 	close(names.fd_pipe[0]);
 	close(names.fd_pipe[1]);
+	int	i = 0;
+	while (i != 4)
+		printf("PROC = %d \n", names.proc[i++]);
 	ft_wait_bonus(&names, 0);
 	ft_free_path(&names, 0);
 	// atexit(leaks);

@@ -1,0 +1,16 @@
+total 184
+-rw-r--r--  1 descamil  2019      0 Feb 20 17:35 12
+-rw-r--r--  1 descamil  2019      0 Feb 20 19:09 123
+-rw-r--r--  1 descamil  2019    727 Feb 20 18:54 Makefile
+-rw-r--r--  1 descamil  2019   2149 Feb 20 19:08 ft_childs.c
+-rw-r--r--  1 descamil  2019   4796 Feb 20 19:09 ft_childs.o
+-rw-r--r--  1 descamil  2019   2235 Feb 20 19:03 ft_commands_bonus.c
+-rw-r--r--  1 descamil  2019   5672 Feb 20 19:09 ft_commands_bonus.o
+-rw-r--r--  1 descamil  2019   2473 Feb 20 19:09 ft_main_bonus.c
+-rw-r--r--  1 descamil  2019   5868 Feb 20 19:09 ft_main_bonus.o
+-rw-r--r--  1 descamil  2019   1863 Feb 20 17:33 ft_pipex_utils_bonus.c
+-rw-r--r--  1 descamil  2019   4348 Feb 20 19:09 ft_pipex_utils_bonus.o
+-rw-r--r--  1 descamil  2019   2350 Feb 20 17:33 ft_split_bonus.c
+-rw-r--r--  1 descamil  2019   5440 Feb 20 19:09 ft_split_bonus.o
+-rwxr-xr-x  1 descamil  2019  20940 Feb 20 19:09 pipex_bonus
+-rw-r--r--  1 descamil  2019   1889 Feb 20 18:54 pipex_bonus.h

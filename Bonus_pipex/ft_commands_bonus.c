@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/17 11:06:02 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/22 11:14:33 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ char	*ft_validate_comm_bonus(t_names *names, int i)
 		return (*names->entire_comm);
 	names->command = ft_strjoin_bonus("/", names->entire_comm[0]);
 	while (names->path[i] != NULL)
-	{																		// Necesita una ruta "names->entire_comm" que puede contener la ruta entera o 
-		names->path_comm = ft_strjoin_bonus(names->path[i++], names->command);	// puede tener solo el nombre, en ese caso se le añade una barra y ruta una a
-		if (access(names->path_comm, X_OK) == 0)							// una para probar si son rutas con posibilidad de ejecución.
+	{
+		names->path_comm = ft_strjoin_bonus(names->path[i++], names->command);
+		if (access(names->path_comm, X_OK) == 0)
 			return (names->path_comm);
 	}
 	ft_error_bonus("Command not found");
 	return (NULL);
 }
 
-void	ft_execute_bonus(t_names *names)
+void	ft_execute_bonus(t_names *names, char *argv)
 {
-	names->route = ft_validate_comm_bonus(names, 1);				// Se llamara como ft_execute(&names, argv, envp);
-	names->entire_comm = ft_split_bonus(names->argv[2], ' ');
+	names->entire_comm = ft_split_bonus(argv, ' ');
+	if (names->entire_comm == NULL)
+		ft_error_bonus("Bad split");
+	names->route = ft_validate_comm_bonus(names, 1);
+	if (names->route == NULL)
+		write(2, "Command not found\n", 19);
 	execve(names->route, names->entire_comm, names->envp);
 }

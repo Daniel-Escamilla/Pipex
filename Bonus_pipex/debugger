@@ -1,0 +1,14 @@
+CMD --> [/bin/ls]
+Arguments:
+	=> [ls]
+	=> [-l]
+	[NULL]
+CMD --> [/bin/cat]
+Arguments:
+	=> [cat]
+	[NULL]
+CMD --> [/usr/bin/wc]
+Arguments:
+	=> [wc]
+	=> [-l]
+	[NULL]
