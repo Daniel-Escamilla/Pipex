@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/17 16:24:36 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:13:51 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,17 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	ft_setnames(&names, argv);
+	
 	if (dup2(names.fd, STDOUT_FILENO) == -1)
 		ft_error("Failed redirecting");
+		
 	names.path = ft_create_path(envp);
+
 	if (pipe(fd_pipe) == -1)
 		ft_error("Pipe error");
+
 	ft_child(names, argv, envp, fd_pipe);
+	
 	close(fd_pipe[0]);
 	close(fd_pipe[1]);
 	waitpid(names.child1, NULL, 0);
