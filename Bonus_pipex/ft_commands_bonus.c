@@ -6,16 +6,16 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/22 11:14:33 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:37:04 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	ft_error_bonus(char *str)
+void	ft_error_bonus(char *str, int i)
 {
 	perror(str);
-	exit(1);
+	exit(i);
 }
 
 char	*ft_remove_path_bonus(char *dst, const char *src, int num, int i)
@@ -45,8 +45,12 @@ char	**ft_create_path_bonus(t_names *names)
 
 char	*ft_validate_comm_bonus(t_names *names, int i)
 {
-	if (access(*names->entire_comm, X_OK) == 0)
+	if (access(*names->entire_comm, X_OK) == 0
+		&& ft_strrchr_bonus(*names->entire_comm, '/'))
 		return (*names->entire_comm);
+	if (access(*names->entire_comm, X_OK) != 0
+		&& ft_strrchr_bonus(*names->entire_comm, '/'))
+		ft_error_bonus("Error", 127);
 	names->command = ft_strjoin_bonus("/", names->entire_comm[0]);
 	while (names->path[i] != NULL)
 	{
@@ -54,7 +58,6 @@ char	*ft_validate_comm_bonus(t_names *names, int i)
 		if (access(names->path_comm, X_OK) == 0)
 			return (names->path_comm);
 	}
-	ft_error_bonus("Command not found");
 	return (NULL);
 }
 
@@ -62,9 +65,15 @@ void	ft_execute_bonus(t_names *names, char *argv)
 {
 	names->entire_comm = ft_split_bonus(argv, ' ');
 	if (names->entire_comm == NULL)
-		ft_error_bonus("Bad split");
+		ft_error_bonus("Bad split", 1);
 	names->route = ft_validate_comm_bonus(names, 1);
-	if (names->route == NULL)
-		write(2, "Command not found\n", 19);
+	if (names->fd_infile == -1)
+	{
+		names->fd_infile = 0;
+		if (names->route != NULL)
+			ft_error_bonus("Failed open input", 1);
+		else
+			write (2, "Command not found\n", 19);
+	}
 	execve(names->route, names->entire_comm, names->envp);
 }

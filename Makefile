@@ -1,6 +1,7 @@
 SOURCE_FILES =	ft_main.c \
 				ft_split.c \
 				ft_strstr.c \
+				ft_memset.c \
 				ft_strjoin.c \
 				ft_commands.c \
 

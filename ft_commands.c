@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/20 19:15:01 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:03:31 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_error(char *str)
 
 void	ft_setnames(t_names *names, char **argv)
 {
+	ft_memset(names, 0, sizeof(names), 0);
 	names->input = argv[1];
 	names->output = argv[4];
 }

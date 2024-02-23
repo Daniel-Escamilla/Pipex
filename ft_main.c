@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/20 19:13:51 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:01:48 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **envp)
 	if (fd == -1)
 	{
 		close(fd_pipe[0]);
-		ft_error("Error open input");
+		ft_error("Error open Input");
 	}
 	dup2(fd, STDOUT_FILENO);
 	dup2(fd_pipe[0], STDIN_FILENO);
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_names	names;
 	int		fd_pipe[2];
+	int		status;
 
 	if (argc != 5)
 	{
@@ -100,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 	close(fd_pipe[0]);
 	close(fd_pipe[1]);
 	waitpid(names.child1, NULL, 0);
-	waitpid(names.child2, NULL, 0);
+	waitpid(names.child2, &status, 0);
 	ft_free_path(&names, 0);
-	return (0);
+	return (WEXITSTATUS(status));
 }

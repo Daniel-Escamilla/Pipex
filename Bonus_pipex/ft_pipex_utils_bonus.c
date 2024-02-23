@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:26:16 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 19:20:45 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:46:50 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,22 @@ int	ft_strchr_bonus(const char *s, int c)
 	return (0);
 }
 
+int	ft_strrchr_bonus(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	while (i + 1 >= 0)
+	{
+		if (s[i] == (char)c)
+			return (1);
+		i--;
+	}
+	return (0);
+}
+
 char	*ft_strjoin_bonus(char const *s1, char const *s2)
 {
 	int		i;
@@ -75,4 +91,33 @@ char	*ft_strjoin_bonus(char const *s1, char const *s2)
 		ptr[i++] = (char)s2[j++];
 	ptr[i] = '\0';
 	return (ptr);
+}
+
+int	ft_strnstr(const char *s1, const char *s2, size_t len)
+{
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	i = 0;
+	j = 0;
+	if (*s2 == '\0')
+		return (0);
+	while (s1[i] != '\0' && i < len)
+	{
+		if (s1[i] == s2[j])
+		{
+			k = i;
+			while (s1[k] == s2[j] && s2[j] != '\0' && (k < len))
+			{
+				k++;
+				j++;
+				if (s2[j] == '\0')
+					return (1);
+			}
+			j = 0;
+		}
+		i++;
+	}
+	return (0);
 }
