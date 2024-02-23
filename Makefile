@@ -36,7 +36,7 @@ fclean: clean
 
 re: clean all
 
-git:
+git: fclean
 	git add .
 	git status
 	@read -p "Quieres continuar? [y/n]: " answer; \
