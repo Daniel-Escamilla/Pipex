@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:15:48 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 09:31:39 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 10:23:50 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include "get_next_line.h"
 
 typedef struct s_names
 {
@@ -41,6 +42,7 @@ typedef struct s_names
 
 	char	*route;
 	char	*input;
+	char	*limiter;
 	char	*command;
 	char	*path_comm;
 
@@ -50,7 +52,7 @@ typedef struct s_names
 	char	**entire_comm;
 }			t_names;
 
-int		ft_strlen_bonus(const char *s);
+int		ft_strlen_b(const char *s);
 int		ft_strchr_bonus(const char *s, int c);
 int		ft_strrchr_bonus(const char *s, int c);
 int		ft_strnstr(const char *s1, const char *s2, size_t len);

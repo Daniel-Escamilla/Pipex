@@ -1,8 +1,10 @@
 SOURCE_FILES_BONUS =	ft_childs.c \
+						get_next_line.c \
 						ft_main_bonus.c \
 						ft_split_bonus.c \
 						ft_here_doc_bonus.c \
 						ft_commands_bonus.c \
+						get_next_line_utils.c\
 						ft_pipex_utils_bonus.c \
 
 NAME_BONUS = pipex_bonus

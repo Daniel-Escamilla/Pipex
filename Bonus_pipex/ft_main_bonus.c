@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 09:58:19 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 11:49:46 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_setvalues(t_names *names, char **argv, char **envp, int argc)
 {
-	names->fd = 0;
 	names->argc = argc;
 	names->argv = argv;
 	names->envp = envp;
@@ -22,6 +21,7 @@ void	ft_setvalues(t_names *names, char **argv, char **envp, int argc)
 	names->output = names->argv[names->argc - 1];
 	if (names->value == 'M')
 	{
+		names->fd = 0;
 		names->index = 0;
 		names->comm_midd = 3;
 		names->input = names->argv[1];
@@ -31,7 +31,7 @@ void	ft_setvalues(t_names *names, char **argv, char **envp, int argc)
 	else if (names->value == 'H')
 	{
 		names->proc = malloc(2 * sizeof(int));
-		names->index = 0;
+		names->limiter = argv[2];
 	}
 }
 
@@ -47,7 +47,7 @@ int	ft_wait_bonus(t_names *names, int i)
 
 void	ft_error_write(char *str)
 {
-	write(2, str, ft_strlen_bonus(str));
+	write(2, str, ft_strlen_b(str));
 	exit(1);
 }
 
@@ -57,12 +57,8 @@ static void	ft_free_path(t_names *names, int i)
 		free(names->path[i++]);
 	free(names->path);
 	free(names->proc);
+	unlink(".here_doc");
 }
-
-// static void leaks(void)
-// {
-// 	system("leaks -q pipex");
-// }
 
 void	ft_multiple(t_names *names, char **argv, char **envp, int argc)
 {
@@ -78,12 +74,17 @@ void	ft_multiple(t_names *names, char **argv, char **envp, int argc)
 
 void	ft_here(t_names *names, char **argv, char **envp, int argc)
 {
-	if (argc < 6)
+	if (argc != 6)
 		ft_error_write("Few args for here_doc");
 	names->value = 'H';
 	ft_setvalues(names, argv, envp, argc);
 	ft_here_doc(names);
 }
+
+// static void leaks(void)
+// {
+// 	system("leaks -q pipex");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -98,8 +99,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_here(&names, argv, envp, argc);
 	else
 		ft_multiple(&names, argv, envp, argc);
-	while (i < 2)
-		printf("%d\n", names.proc[i++]);
+	// while (i < 2)
+	// 	printf("%d\n", names.proc[i++]);
 	state = ft_wait_bonus(&names, 0);
 	ft_free_path(&names, 0);
 	// atexit(leaks);

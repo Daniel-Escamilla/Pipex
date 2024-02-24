@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:26:16 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 09:17:03 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 10:23:42 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_strnstr_bonus(const char *s1, const char *s2, int len)
 	return (0);
 }
 
-int	ft_strlen_bonus(const char *s)
+int	ft_strlen_b(const char *s)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ char	*ft_strjoin_bonus(char const *s1, char const *s2)
 	char	*ptr;
 
 	i = -1;
-	j = ft_strlen_bonus((char *)s1) + ft_strlen_bonus((char *)s2);
+	j = ft_strlen_b((char *)s1) + ft_strlen_b((char *)s2);
 	ptr = malloc(j + 1);
 	j = 0;
 	if (ptr == NULL)
