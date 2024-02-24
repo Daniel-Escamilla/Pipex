@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 19:40:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/22 19:54:20 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:12:57 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memset(void *s, char c, size_t n, int i)
 {
-	char *ptr;
+	char	*ptr;
 
 	ptr = (char *)s;
 	while (n-- + 1 != 0)
