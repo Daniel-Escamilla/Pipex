@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 19:15:48 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 10:23:50 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:50:25 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_strlen_b(const char *s);
 int		ft_strchr_bonus(const char *s, int c);
 int		ft_strrchr_bonus(const char *s, int c);
 int		ft_strnstr(const char *s1, const char *s2, size_t len);
-int		ft_strnstr_bonus(const char *s1, const char *s2, int len);
 
 void	ft_here_doc(t_names *names);
 void	ft_last_comm(t_names *names);

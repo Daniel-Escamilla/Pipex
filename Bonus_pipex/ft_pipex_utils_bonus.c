@@ -6,36 +6,11 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:26:16 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 10:23:42 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:51:45 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-
-int	ft_strnstr_bonus(const char *s1, const char *s2, int len)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	while (s1[i] != '\0' && i < len)
-	{
-		if (s1[i] == s2[j])
-		{
-			k = i;
-			while (s1[k] == s2[j] && s2[j] != '\0' && (k++ < len))
-			{
-				if (s2[++j] == '\0')
-					return (1);
-			}
-			j = 0;
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	ft_strlen_b(const char *s)
 {

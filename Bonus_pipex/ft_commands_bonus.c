@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/23 17:37:04 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:51:35 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**ft_create_path_bonus(t_names *names)
 	path = NULL;
 	while (names->envp[++i] != NULL)
 	{
-		if (ft_strnstr_bonus(names->envp[i], "PATH=", 5))
+		if (ft_strnstr(names->envp[i], "PATH=", 5))
 			path = ft_split_bonus(names->envp[i], ':');
 	}
 	ft_remove_path_bonus(path[0], path[0], 5, 0);
