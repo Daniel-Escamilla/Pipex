@@ -5,36 +5,39 @@ SOURCE_FILES =	ft_main.c \
 				ft_strjoin.c \
 				ft_commands.c \
 
-NAME = pipex
-
-NAME_BONUS = pipex_bonus
+SOURCE_FILES_BONUS =	get_next_line.c \
+						ft_main_bonus.c \
+						ft_split_bonus.c \
+						ft_childs_bonus.c \
+						ft_command_bonus.c \
+						ft_here_doc_bonus.c \
+						get_next_line_utils.c \
+						ft_pipex_utils_bonus.c \
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 OBJECTS = $(SOURCE_FILES:.c=.o)
+OBJECTS_BONUS = $(SOURCE_FILES_BONUS:.c=.o)
 
-all: $(NAME)
+NAME = pipex
+
+all: $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
+
+bonus: $(OBJECTS_BONUS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS_BONUS)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) : $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
-
-bonus:
-	$(MAKE) -C bonus_pipex all
-	mv bonus_pipex/pipex_bonus .
-
 clean:
-	rm -rf $(OBJECTS)
-	$(MAKE) -C bonus_pipex clean
+	rm -rf $(OBJECTS) $(OBJECTS_BONUS)
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf $(NAME_BONUS)
 
-re: clean all bonus
+re: fclean all
 
 git: fclean
 	git add .
@@ -46,4 +49,4 @@ git: fclean
 		git push; \
 	fi 
 
-.PHONY: re fclean clean all
+.PHONY: re fclean clean all bonus
