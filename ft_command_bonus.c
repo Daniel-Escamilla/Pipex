@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_commands_bonus.c                                :+:      :+:    :+:   */
+/*   ft_command_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 16:51:35 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:30:39 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_validate_comm_bonus(t_names *names, int i)
 		if (access(names->path_comm, X_OK) == 0)
 			return (names->path_comm);
 	}
+	ft_error_bonus("Command not found", 127);
 	return (NULL);
 }
 

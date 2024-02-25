@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 15:09:11 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/10 13:36:31 by descamil         ###   ########.fr       */
+/*   Created: 2024/02/25 12:19:19 by descamil          #+#    #+#             */
+/*   Updated: 2024/02/25 12:56:08 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int	ft_strrchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	while (i + 1 >= 0)
+	{
+		if (s[i] == (char)c)
+			return (1);
+		i--;
+	}
+	return (0);
+}
 
 int	ft_strnstr(const char *s1, const char *s2, size_t len)
 {
@@ -20,6 +36,8 @@ int	ft_strnstr(const char *s1, const char *s2, size_t len)
 
 	i = 0;
 	j = 0;
+	if (*s2 == '\0')
+		return (0);
 	while (s1[i] != '\0' && i < len)
 	{
 		if (s1[i] == s2[j])

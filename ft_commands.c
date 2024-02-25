@@ -6,16 +6,16 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/22 20:03:31 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:21:56 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_error(char *str)
+void	ft_error(char *str, int i)
 {
 	perror(str);
-	exit(1);
+	exit(i);
 }
 
 void	ft_setnames(t_names *names, char **argv)
@@ -50,29 +50,24 @@ char	**ft_create_path(char **envp)
 	return (path);
 }
 
-char	*ft_validate_comm(t_names *names, int i)
+char	*ft_validate_comm(t_names *names)
 {
 	int		j;
 
 	j = 0;
-	if (i == 1)
-	{
-		if (access(*names->entire_comm1, X_OK) == 0)
-			return (*names->entire_comm1);
-		names->command = ft_strjoin("/", names->entire_comm1[0]);
-	}
-	else if (i == 2)
-	{
-		if (access(*names->entire_comm2, X_OK) == 0)
-			return (*names->entire_comm2);
-		names->command = ft_strjoin("/", names->entire_comm2[0]);
-	}
+	if (access(*names->entire_comm, X_OK) == 0
+		&& ft_strrchr(*names->entire_comm, '/'))
+		return (*names->entire_comm);
+	if (access(*names->entire_comm, X_OK) != 0
+		&& ft_strrchr(*names->entire_comm, '/'))
+		ft_error("Error", 127);
+	names->command = ft_strjoin("/", names->entire_comm[0]);
 	while (names->path[j] != NULL)
 	{
 		names->path_comm = ft_strjoin(names->path[j++], names->command);
 		if (access(names->path_comm, X_OK) == 0)
 			return (names->path_comm);
 	}
-	ft_error("Command not found");
+	ft_error("Command not found", 127);
 	return (NULL);
 }

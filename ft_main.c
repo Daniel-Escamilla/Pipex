@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 17:12:41 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:55:50 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,15 @@ void	ft_child1(t_names *names, char **argv, int *fd_pipe, char **envp)
 	dup2(fd, STDIN_FILENO);
 	dup2(fd_pipe[1], STDOUT_FILENO);
 	close(fd_pipe[0]);
-	names->entire_comm1 = ft_split(argv[2], ' ');
-	if (names->entire_comm1 == NULL)
-		ft_error("Bad split");
-	names->route = ft_validate_comm(names, 1);
+	names->entire_comm = ft_split(argv[2], ' ');
+	if (names->entire_comm == NULL)
+		ft_error("Bad split", 1);
+	names->route = ft_validate_comm(names);
 	if (fd == -1 && names->route != NULL)
-	{
-		perror("Failed open input");
-		exit(1);
-	}
+		ft_error("Failed open input", 1);
 	else if (fd == -1 && names->route == NULL)
-		write (2, "Command not found\n", 19);
-	execve(names->route, names->entire_comm1, envp);
+		ft_error("Command not found", 127);
+	execve(names->route, names->entire_comm, envp);
 }
 
 void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **envp)
@@ -42,30 +39,36 @@ void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **envp)
 	if (fd == -1)
 	{
 		close(fd_pipe[0]);
-		ft_error("Error open Input");
+		ft_error("Error open Input", 1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	dup2(fd_pipe[0], STDIN_FILENO);
 	close(fd_pipe[1]);
-	names->entire_comm2 = ft_split(argv[3], ' ');
-	if (names->entire_comm2 == NULL)
-		ft_error("Bad split");
-	names->route = ft_validate_comm(names, 2);
-	execve(names->route, names->entire_comm2, envp);
+	names->entire_comm = ft_split(argv[3], ' ');
+	if (names->entire_comm == NULL)
+		ft_error("Bad split", 1);
+	names->route = ft_validate_comm(names);
+	execve(names->route, names->entire_comm, envp);
 }
 
-void	ft_child(t_names names, char **argv, char **envp, int *fd_pipe)
+void	ft_child(t_names *names, char **argv, char **envp, int *fd_pipe)
 {
-	names.child1 = fork();
-	if (names.child1 == -1)
-		ft_error("Child error");
-	if (names.child1 == 0)
-		ft_child1(&names, argv, fd_pipe, envp);
-	names.child2 = fork();
-	if (names.child2 == -1)
-		ft_error("Child2 error");
-	if (names.child2 == 0)
-		ft_child2(&names, argv, fd_pipe, envp);
+	int	fork_pid;
+
+	fork_pid = fork();
+	if (fork_pid > 0)
+		names->child1 = fork_pid;
+	if (fork_pid == -1)
+		ft_error("Child error", 1);
+	if (fork_pid == 0)
+		ft_child1(names, argv, fd_pipe, envp);
+	fork_pid = fork();
+	if (fork_pid > 0)
+		names->child2 = fork_pid;
+	if (fork_pid == -1)
+		ft_error("Child2 error", 1);
+	if (fork_pid == 0)
+		ft_child2(names, argv, fd_pipe, envp);
 }
 
 static void	ft_free_path(t_names *names, int i)
@@ -82,17 +85,14 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 
 	if (argc != 5)
-	{
-		write (2, "Error\n", 6);
-		return (0);
-	}
+		ft_error("Few args", 1);
 	ft_setnames(&names, argv);
 	if (dup2(names.fd, STDOUT_FILENO) == -1)
-		ft_error("Failed redirecting");
+		ft_error("Failed redirecting", 1);
 	names.path = ft_create_path(envp);
 	if (pipe(fd_pipe) == -1)
-		ft_error("Pipe error");
-	ft_child(names, argv, envp, fd_pipe);
+		ft_error("Pipe error", 1);
+	ft_child(&names, argv, envp, fd_pipe);
 	close(fd_pipe[0]);
 	close(fd_pipe[1]);
 	waitpid(names.child1, NULL, 0);
