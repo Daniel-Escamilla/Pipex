@@ -34,7 +34,7 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(NAME_BONUS)
 
-re: clean all
+re: clean all bonus
 
 git: fclean
 	git add .

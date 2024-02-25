@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:34:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 16:45:54 by descamil         ###   ########.fr       */
+/*   Updated: 2024/02/24 17:29:55 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	ft_last_comm(t_names *names)
 			close(names->fd_tmp);
 			ft_error_bonus("Error open input", 1);
 		}
-		dup2(fd, STDOUT_FILENO);
 		dup2(names->fd_tmp, STDIN_FILENO);
-		close(fd);
+		dup2(fd, STDOUT_FILENO);
 		close(names->fd_tmp);
+		close(fd);
 		ft_execute_bonus(names, names->argv[names->argc - 2]);
 	}
 	names->index++;
