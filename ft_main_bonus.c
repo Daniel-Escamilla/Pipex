@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 16:50:17 by descamil         ###   ########.fr       */
+/*   Updated: 2024/06/22 11:44:36 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_names	names;
 	int		state;
-	int		i;
 
-	i = 0;
 	if (argc < 5)
 		ft_error_write("Few args\n");
 	if (ft_strnstr(argv[1], "here_doc", 8) == 1)

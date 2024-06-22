@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/25 12:21:09 by descamil         ###   ########.fr       */
+/*   Updated: 2024/06/22 11:45:03 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <stdint.h>
 
 typedef struct s_names
 {

@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:35:10 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 10:15:30 by descamil         ###   ########.fr       */
+/*   Updated: 2024/06/22 11:45:19 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdint.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

@@ -39,4 +39,28 @@ fclean: clean
 
 re: fclean all
 
+git: fclean
+	git add .
+	git status
+	@read -p "Quieres continuar? [y/n]: " answer; \
+	if [ "$$answer" = "y" ]; then \
+		read -p "Mensaje para el commit: " message; \
+		git commit -m "$$message"; \
+		git push; \
+		clear; \
+		echo "╔══════════════════════════════════════════════════════╗"; \
+		echo "║ $(BOLD_GREEN)(┌ಠ_ಠ)\t ¡¡¡Git push realizado!!! \t(ಠ_ಠ┐)$(RESET) ║"; \
+		echo "╚══════════════════════════════════════════════════════╝"; \
+		sleep 0.5; \
+		clear; \
+	else \
+		clear; \
+		echo "╔════════════════════════════════════════════════════════╗"; \
+		echo "║ $(BOLD_RED)(҂◕︵◕)\t¡¡¡Git push no realizado!!!\t (҂◕︵◕)$(RESET) ║"; \
+		echo "╚════════════════════════════════════════════════════════╝"; \
+		sleep 0.5; \
+		clear; \
+	fi
+
+
 .PHONY: re fclean clean all bonus
