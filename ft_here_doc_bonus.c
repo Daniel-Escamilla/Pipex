@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 09:21:42 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 16:50:19 by descamil         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:34:46 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	ft_here_doc(t_names *names)
 	while (1)
 	{
 		line = get_next_line(0);
-		if (ft_strnstr(line, names->limiter, ft_strlen_b(names->limiter)) == 1)
+		if (ft_strnstr(line, names->limiter, ft_strlen_b(names->limiter)) == 1
+			&& ft_strlen_b(line) == ft_strlen_b(names->limiter) + 1)
 			break ;
 		if (write(fd_tmp, line, ft_strlen_b(line)) == -1)
 			ft_error_bonus("Error write", 1);

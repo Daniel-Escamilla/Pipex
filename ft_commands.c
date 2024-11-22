@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/25 12:21:56 by descamil         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:02:52 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	ft_error(char *str, int i)
 {
-	perror(str);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
 	exit(i);
+	perror(str);
 }
 
 void	ft_setnames(t_names *names, char **argv)
@@ -23,15 +25,6 @@ void	ft_setnames(t_names *names, char **argv)
 	ft_memset(names, 0, sizeof(names), 0);
 	names->input = argv[1];
 	names->output = argv[4];
-}
-
-char	*ft_remove_path(char *dst, const char *src, int num, int i)
-{
-	while (src[num] != '\0')
-		dst[i++] = src[num++];
-	while (dst[i] != '\0')
-		dst[i++] = '\0';
-	return (dst);
 }
 
 char	**ft_create_path(char **envp)
@@ -44,9 +37,8 @@ char	**ft_create_path(char **envp)
 	while (envp[++i] != NULL)
 	{
 		if (ft_strnstr(envp[i], "PATH=", 5))
-			path = ft_split(envp[i], ':');
+			path = ft_split(envp[i] + 5, ':');
 	}
-	ft_remove_path(path[0], path[0], 5, 0);
 	return (path);
 }
 

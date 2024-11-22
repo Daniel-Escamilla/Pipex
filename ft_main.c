@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/25 12:55:50 by descamil         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:40:44 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_child1(t_names *names, char **argv, int *fd_pipe, char **envp)
 		ft_error("Bad split", 1);
 	names->route = ft_validate_comm(names);
 	if (fd == -1 && names->route != NULL)
-		ft_error("Failed open input", 1);
+		ft_error("Failed open Input", 1);
 	else if (fd == -1 && names->route == NULL)
 		ft_error("Command not found", 127);
 	execve(names->route, names->entire_comm, envp);
@@ -39,7 +39,7 @@ void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **envp)
 	if (fd == -1)
 	{
 		close(fd_pipe[0]);
-		ft_error("Error open Input", 1);
+		ft_error("Error open Output", 1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	dup2(fd_pipe[0], STDIN_FILENO);
