@@ -1,71 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipex_utils_bonus.c                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 17:26:16 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 16:51:45 by descamil         ###   ########.fr       */
+/*   Created: 2024/02/25 12:19:19 by descamil          #+#    #+#             */
+/*   Updated: 2024/12/04 15:08:55 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "../pipex.h"
 
-int	ft_strlen_b(const char *s)
+int	ft_strrchr(const char *s, int c)
 {
 	int	i;
 
 	i = 0;
 	while (s[i] != '\0')
 		i++;
-	return (i);
-}
-
-int	ft_strchr_bonus(const char *s, int c)
-{
-	while (*s != '\0')
-	{
-		if ((*s++) + 1 == (char)c || *s == (char)c)
-			return (1);
-	}
-	return (0);
-}
-
-int	ft_strrchr_bonus(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	while (i + 1 >= 0)
+	while (i != 0)
 	{
 		if (s[i] == (char)c)
 			return (1);
 		i--;
 	}
 	return (0);
-}
-
-char	*ft_strjoin_bonus(char const *s1, char const *s2)
-{
-	int		i;
-	int		j;
-	char	*ptr;
-
-	i = -1;
-	j = ft_strlen_b((char *)s1) + ft_strlen_b((char *)s2);
-	ptr = malloc(j + 1);
-	j = 0;
-	if (ptr == NULL)
-		return (NULL);
-	while ((char)s1[++i] != '\0')
-		ptr[i] = (char)s1[i];
-	while ((char)s2[j] != '\0')
-		ptr[i++] = (char)s2[j++];
-	ptr[i] = '\0';
-	return (ptr);
 }
 
 int	ft_strnstr(const char *s1, const char *s2, size_t len)

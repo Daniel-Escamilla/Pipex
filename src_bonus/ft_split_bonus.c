@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:19:22 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/10 13:35:45 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex_bonus.h"
 
-int	ft_strlen_mod(const char *s, int i, char c)
+int	ft_strlen_mod_bonus(const char *s, int i, char c)
 {
 	int	len;
 
@@ -27,7 +27,7 @@ int	ft_strlen_mod(const char *s, int i, char c)
 	return (len);
 }
 
-char	*ft_strlcpy_mod(char *s, char c, int *new_start, int size)
+char	*ft_strlcpy_mod_bonus(char *s, char c, int *new_start, int size)
 {
 	char	*ptr;
 	int		j;
@@ -47,27 +47,24 @@ char	*ft_strlcpy_mod(char *s, char c, int *new_start, int size)
 	return (ptr);
 }
 
-void	*free_memory(int a, char **arr)
+void	*free_memory_bonus(int a, char **arr)
 {
 	int	f;
 
 	f = 0;
 	while (f < a)
-	{
-		free(arr[f]);
-		f++;
-	}
+		free(arr[f++]);
 	free(arr);
 	return (NULL);
 }
 
-int	ft_words(const char *s, char c)
+int	ft_words_bonus(const char *s, char c)
 {
-	int	word;
 	int	i;
+	int	word;
 
-	word = 0;
 	i = 0;
+	word = 0;
 	while (s[i] != '\0')
 	{
 		while (s[i] == c)
@@ -80,7 +77,7 @@ int	ft_words(const char *s, char c)
 	return (word);
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split_bonus(const char *s, char c)
 {
 	int		i;
 	int		a;
@@ -90,18 +87,16 @@ char	**ft_split(const char *s, char c)
 
 	i = 0;
 	a = 0;
-	len_mod = 0;
-	arr = (char **)malloc((ft_words(s, c) + 1) * sizeof(char *));
+	arr = (char **)malloc((ft_words_bonus(s, c) + 1) * sizeof(char *));
 	if (arr == NULL)
 		return (NULL);
-	while (a < ft_words(s, c))
+	while (a < ft_words_bonus(s, c))
 	{
-		len_mod = ft_strlen_mod(s, i, c);
-		cpy_mod = ft_strlcpy_mod((char *)s, c, &i, len_mod);
+		len_mod = ft_strlen_mod_bonus(s, i, c);
+		cpy_mod = ft_strlcpy_mod_bonus((char *)s, c, &i, len_mod);
 		if (cpy_mod == NULL)
-			return (free_memory(a, arr));
-		arr[a] = cpy_mod;
-		a++;
+			return (free_memory_bonus(a, arr));
+		arr[a++] = cpy_mod;
 	}
 	arr[a] = NULL;
 	return (arr);

@@ -6,11 +6,11 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 15:22:54 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/16 18:14:17 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:08:55 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 size_t	ft_strlen(const char *s)
 {

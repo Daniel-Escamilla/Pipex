@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strdup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 19:40:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 17:12:57 by descamil         ###   ########.fr       */
+/*   Created: 2024/01/22 16:39:53 by sergio            #+#    #+#             */
+/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex_bonus.h"
 
-void	*ft_memset(void *s, char c, size_t n, int i)
+char	*ft_strdup_bonus(const char *str)
 {
-	char	*ptr;
+	size_t	len;
+	char	*copy;
 
-	ptr = (char *)s;
-	while (n-- + 1 != 0)
-		ptr[i++] = c;
-	return (s);
+	len = ft_strlen_b(str);
+	copy = (char *)ft_calloc(sizeof(char), len + 1);
+	if (!copy)
+		return (NULL);
+	ft_strlcpy_bonus(copy, str, len + 1);
+	return (copy);
 }

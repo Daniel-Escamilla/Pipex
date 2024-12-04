@@ -6,18 +6,17 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/08/22 10:02:52 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:34:34 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 void	ft_error(char *str, int i)
 {
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	exit(i);
-	perror(str);
 }
 
 void	ft_setnames(t_names *names, char **argv)
@@ -25,20 +24,24 @@ void	ft_setnames(t_names *names, char **argv)
 	ft_memset(names, 0, sizeof(names), 0);
 	names->input = argv[1];
 	names->output = argv[4];
+	names->child1 = 0;
+	names->child2 = 0;
 }
 
-char	**ft_create_path(char **envp)
+char	**ft_create_path(char **env)
 {
 	char	**path;
 	int		i;
 
 	i = -1;
 	path = NULL;
-	while (envp[++i] != NULL)
+	while (env[++i] != NULL)
 	{
-		if (ft_strnstr(envp[i], "PATH=", 5))
-			path = ft_split(envp[i] + 5, ':');
+		if (ft_strnstr(env[i], "PATH=", 5))
+			path = ft_split(env[i] + 5, ':');
 	}
+	if (path == NULL)
+		*path = ft_strdup("");
 	return (path);
 }
 
@@ -59,6 +62,7 @@ char	*ft_validate_comm(t_names *names)
 		names->path_comm = ft_strjoin(names->path[j++], names->command);
 		if (access(names->path_comm, X_OK) == 0)
 			return (names->path_comm);
+		free(names->path_comm);
 	}
 	ft_error("Command not found", 127);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/06/22 11:45:03 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:06:16 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_names
 	int		fd;
 	int		child1;
 	int		child2;
+	int		fd_infile;
+	int		fd_outfile;
 
 	char	*output;
 
@@ -38,20 +40,33 @@ typedef struct s_names
 	char	**entire_comm;
 }			t_names;
 
-size_t	ft_strlen(const char *s);
+//ft_calloc.c
+void	*ft_calloc(size_t nmemb, size_t size);
 
-int		ft_strrchr(const char *s, int c);
-int		ft_strnstr(const char *s1, const char *s2, size_t len);
-
-char	*ft_validate_comm(t_names *names);
-char	*ft_strjoin(char const *s1, char const *s2);
-
-char	**ft_create_path(char **envp);
-char	**ft_split(const char *s, char c);
-
+// ft_commands.c
 void	ft_error(char *str, int i);
+char	**ft_create_path(char **env);
+char	*ft_validate_comm(t_names *names);
 void	ft_setnames(t_names *names, char **argv);
 
+// ft_memset.c
 void	*ft_memset(void *s, char c, size_t n, int i);
+
+// ft_split.c
+char	**ft_split(const char *s, char c);
+
+// ft_strdup.c
+char	*ft_strdup(const char *str);
+
+// ft_strjoin.c
+char	*ft_strjoin(char const *s1, char const *s2);
+
+// ft_strlcpy.c
+size_t	ft_strlcpy(char *dest, const char *src, size_t len_dest);
+
+// ft_strchr.c
+size_t	ft_strlen(const char *s);
+int		ft_strrchr(const char *s, int c);
+int		ft_strnstr(const char *s1, const char *s2, size_t len);
 
 #endif

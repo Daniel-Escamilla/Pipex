@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_childs.c                                        :+:      :+:    :+:   */
+/*   ft_childs_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:34:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/02/24 17:29:55 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "../pipex_bonus.h"
 
-void	ft_setvalues(t_names *names, char **argv, char **envp, int argc)
+void	ft_setvalues(t_names *names, char **argv, char **env, int argc)
 {
 	names->index = 0;
 	names->argc = argc;
 	names->argv = argv;
-	names->envp = envp;
+	names->env = env;
 	names->path = ft_create_path_bonus(names);
 	names->output = names->argv[names->argc - 1];
+	names->fd_infile = 0;
 	if (names->value == 'M')
 	{
 		names->fd = 0;
@@ -37,6 +38,12 @@ void	ft_setvalues(t_names *names, char **argv, char **envp, int argc)
 
 void	ft_first_comm(t_names *names)
 {
+	names->fd_infile = open(names->input, O_RDONLY);
+	if (names->fd_infile == -1)
+	{
+		perror(names->input);
+		return ;
+	}
 	if (pipe(names->fd_pipe) == -1)
 		ft_error_bonus("Pipe error", 1);
 	names->proc[names->index] = fork();
@@ -45,7 +52,6 @@ void	ft_first_comm(t_names *names)
 	if (names->proc[names->index] == 0)
 	{
 		close(names->fd_pipe[0]);
-		names->fd_infile = open(names->input, O_RDONLY);
 		dup2(names->fd_infile, STDIN_FILENO);
 		dup2(names->fd_pipe[1], STDOUT_FILENO);
 		close(names->fd_infile);
@@ -54,6 +60,8 @@ void	ft_first_comm(t_names *names)
 	}
 	names->fd_tmp = names->fd_pipe[0];
 	names->index++;
+	if (names->fd_infile != -1)
+		close(names->fd_infile);
 	close(names->fd_pipe[1]);
 }
 
@@ -73,6 +81,7 @@ void	ft_midd_comm(t_names *names)
 		close(names->fd_pipe[1]);
 		ft_execute_bonus(names, names->argv[names->comm_midd]);
 	}
+	close(names->fd_tmp);
 	names->fd_tmp = names->fd_pipe[0];
 	names->index++;
 	names->comm_midd++;
@@ -92,7 +101,7 @@ void	ft_last_comm(t_names *names)
 		if (fd == -1)
 		{
 			close(names->fd_tmp);
-			ft_error_bonus("Error open input", 1);
+			ft_error_bonus(names->output, 1);
 		}
 		dup2(names->fd_tmp, STDIN_FILENO);
 		dup2(fd, STDOUT_FILENO);

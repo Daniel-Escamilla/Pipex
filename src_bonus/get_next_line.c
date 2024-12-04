@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:40:35 by descamil          #+#    #+#             */
-/*   Updated: 2023/12/07 13:08:13 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:58:14 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*delete_line(char *buffer)
 		return (NULL);
 	}
 	i++;
-	new = ft_calloc(ft_strlen(buffer) - i + 1, 1);
+	new = ft_calloc(ft_strlen_gnl(buffer) - i + 1, 1);
 	if (!new)
 		return (NULL);
 	j = 0;
@@ -117,30 +117,3 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-
-// void runleaks(void)
-// {
-//    system("leaks a.out");
-// }
-
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		fd;
-// 	int		i;
-
-// 	i = 1;
-// 	fd = open("read_error.txt", O_RDONLY);
-// 	if (fd == -1)
-// 		return (1);
-// 	while (i > 0)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("%s", line);
-// 		free(line);
-// 		i--;
-// 	}
-// 	// atexit(runleaks);
-// 	close (fd);
-// 	return (0);
-// }

@@ -6,11 +6,11 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 09:21:42 by descamil          #+#    #+#             */
-/*   Updated: 2024/11/22 18:34:46 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "../pipex_bonus.h"
 
 void	ft_child1(t_names *names)
 {
@@ -48,7 +48,7 @@ void	ft_child2(t_names *names)
 		if (fd == -1)
 		{
 			close(names->fd_pipe[0]);
-			ft_error_bonus("Error open input", 1);
+			ft_error_bonus("Error open output", 1);
 		}
 		dup2(names->fd_pipe[0], STDIN_FILENO);
 		dup2(fd, STDOUT_FILENO);
