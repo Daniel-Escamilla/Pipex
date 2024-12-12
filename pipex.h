@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:26:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/12/04 15:06:16 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:34:33 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 
 // ft_commands.c
 void	ft_error(char *str, int i);
+int		ft_open_fds(t_names *names);
 char	**ft_create_path(char **env);
 char	*ft_validate_comm(t_names *names);
 void	ft_setnames(t_names *names, char **argv);

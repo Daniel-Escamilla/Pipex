@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:29:36 by descamil          #+#    #+#             */
-/*   Updated: 2024/12/04 15:42:03 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:33:45 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,6 @@ void	ft_child2(t_names *names, char **argv, int *fd_pipe, char **env)
 		ft_error("Bad split", 1);
 	names->route = ft_validate_comm(names);
 	execve(names->route, names->entire_comm, env);
-}
-
-int	ft_open_fds(t_names *names)
-{
-	names->fd_infile = open(names->input, O_RDONLY);
-	names->fd_outfile = open(names->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (names->fd_infile == -1 && names->fd_outfile != -1)
-		close (names->fd_outfile);
-	if (names->fd_outfile == -1 && names->fd_infile != -1)
-		close (names->fd_infile);
-	if (names->fd_infile == -1)
-		perror(names->input);
-	if (names->fd_infile == -1)
-		return (-1);
-	if (names->fd_outfile == -1)
-		perror(names->output);
-	if (names->fd_outfile == -1)
-		return (-1);
-	return (0);
 }
 
 void	ft_child(t_names *names, char **argv, char **env, int *fd_pipe)

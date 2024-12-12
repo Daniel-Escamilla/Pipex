@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:34:29 by descamil          #+#    #+#             */
-/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:36:23 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	ft_first_comm(t_names *names)
 		return ;
 	}
 	if (pipe(names->fd_pipe) == -1)
-		ft_error_bonus("Pipe error", 1);
+		ft_error_bonus("Pipe error\n", 1);
 	names->proc[names->index] = fork();
 	if (names->proc[names->index] == -1)
-		ft_error_bonus("Filed in fork()", 1);
+		ft_error_bonus("Fork Error\n", 1);
 	if (names->proc[names->index] == 0)
 	{
 		close(names->fd_pipe[0]);
@@ -68,10 +68,10 @@ void	ft_first_comm(t_names *names)
 void	ft_midd_comm(t_names *names)
 {
 	if (pipe(names->fd_pipe) == -1)
-		ft_error_bonus("Pipe Error", 1);
+		ft_error_bonus("Pipe Error\n", 1);
 	names->proc[names->index] = fork();
 	if (names->proc[names->index] == -1)
-		ft_error_bonus("Failed in Fork()", 1);
+		ft_error_bonus("Fork Error\n", 1);
 	if (names->proc[names->index] == 0)
 	{
 		close(names->fd_pipe[0]);
@@ -94,7 +94,7 @@ void	ft_last_comm(t_names *names)
 
 	names->proc[names->index] = fork();
 	if (names->proc[names->index] == -1)
-		ft_error_bonus("Filed in fork()", 1);
+		ft_error_bonus("Fork Error\n", 1);
 	if (names->proc[names->index] == 0)
 	{
 		fd = open(names->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);

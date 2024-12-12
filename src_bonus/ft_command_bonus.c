@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/12/04 15:09:16 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:36:40 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error_bonus(char *str, int i)
 {
-	perror(str);
+	write(2, str, ft_strlen_b(str));
 	exit(i);
 }
 
@@ -42,7 +42,10 @@ char	*ft_validate_comm_bonus(t_names *names, int i)
 		return (*names->entire_comm);
 	if (access(*names->entire_comm, X_OK) != 0
 		&& ft_strrchr_bonus(*names->entire_comm, '/'))
-		ft_error_bonus("Error", 127);
+	{
+		perror(*names->entire_comm);
+		exit(127);
+	}
 	names->command = ft_strjoin_bonus("/", names->entire_comm[0]);
 	while (names->path[i] != NULL)
 	{
@@ -51,7 +54,8 @@ char	*ft_validate_comm_bonus(t_names *names, int i)
 			return (names->path_comm);
 		free(names->path_comm);
 	}
-	ft_error_bonus("Command not found", 127);
+	write(2, *names->entire_comm, ft_strlen_b(*names->entire_comm));
+	ft_error_bonus(": Command not found", 127);
 	return (NULL);
 }
 
@@ -59,15 +63,7 @@ void	ft_execute_bonus(t_names *names, char *argv)
 {
 	names->entire_comm = ft_split_bonus(argv, ' ');
 	if (names->entire_comm == NULL)
-		ft_error_bonus("Bad split", 1);
+		ft_error_bonus("Split Error", 1);
 	names->route = ft_validate_comm_bonus(names, 1);
-	if (names->fd_infile == -1)
-	{
-		names->fd_infile = 0;
-		if (names->route != NULL)
-			ft_error_bonus("Failed open input", 1);
-		else
-			write (2, "Command not found\n", 19);
-	}
 	execve(names->route, names->entire_comm, names->env);
 }

@@ -6,7 +6,7 @@
 /*   By: descamil <descamil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:31:58 by descamil          #+#    #+#             */
-/*   Updated: 2024/12/04 15:34:34 by descamil         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:33:59 by descamil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,26 @@
 void	ft_error(char *str, int i)
 {
 	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
 	exit(i);
+}
+
+int	ft_open_fds(t_names *names)
+{
+	names->fd_infile = open(names->input, O_RDONLY);
+	names->fd_outfile = open(names->output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (names->fd_infile == -1 && names->fd_outfile != -1)
+		close (names->fd_outfile);
+	if (names->fd_outfile == -1 && names->fd_infile != -1)
+		close (names->fd_infile);
+	if (names->fd_infile == -1)
+		perror(names->input);
+	if (names->fd_infile == -1)
+		return (-1);
+	if (names->fd_outfile == -1)
+		perror(names->output);
+	if (names->fd_outfile == -1)
+		return (-1);
+	return (0);
 }
 
 void	ft_setnames(t_names *names, char **argv)
@@ -55,7 +73,7 @@ char	*ft_validate_comm(t_names *names)
 		return (*names->entire_comm);
 	if (access(*names->entire_comm, X_OK) != 0
 		&& ft_strrchr(*names->entire_comm, '/'))
-		ft_error("Error", 127);
+		ft_error("Error\n", 127);
 	names->command = ft_strjoin("/", names->entire_comm[0]);
 	while (names->path[j] != NULL)
 	{
